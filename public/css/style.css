@@ -16,3 +16,30 @@ a {
     float: left;
     margin-right: 10px;
 }
+.card {
+    margin-top: 2rem;
+}
+
+.card .card-title {
+    font-weight: 300;
+}
+
+.card .market-info .card-text {
+    font-weight: 400;
+}
+
+.card .market-info .stock-info
+{
+    display: block;
+    float: left;
+    padding: 0 1em;
+    text-align: right;
+}
+
+.card .market-info .up {
+    color: green;
+}
+
+.card .market-info .down {
+    color: red;
+}

@@ -1,38 +1,59 @@
-<h6>Dashboard</h6>
 <h3>Welcome {{name}}</h3>
-<p>Here are your stories</p>
-{{#if stories}}
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each stories}}
-                <tr>
-                    <td><a href="/stories/{{_id}}">{{title}}</a></td>
-                    <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-                    <td><span class="dash-status">{{status}}</span></td>
-                    <td>
-                        <a href="/stories/edit/{{_id}}" class="btn btn-float">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        
-                        <form action="/stories/{{_id}}" method="POST" id="delete-form">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn red">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-{{else}}
-    <p>You have not created any stories</p>
-{{/if}}
+<h5>Available Balance: {{stockPorfolio.hoaCoin}}</h5>
+<p></p>
+
+<h1>My porfolio</h1>
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card stock-card" data-name="">
+            <div class="card-content center-align">
+                <h4 class="card-title">SIZ Ltd.</h4>
+                <p>You own {{stockPorfolio.sizStock}}</p>
+                <div class="market-info">
+                    <p class="card-text stock-info"><a target="_blank"
+                            href="/stock/siz">Details</a></p>
+                    <p class="card-text stock-info up" id="diff"> 9.45
+                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                    </p>
+                    <p class="card-text stock-info"><strong>$</strong> <span id="price">1340</span></p>
+                    <p class="card-text stock-info">SIZ</p>
+                    <input id="input_{{stock.code}}" />
+                    <a style="white-space:nowrap" href="/stock/siz/trade" class="btn btn-primary btn-success ">TRADE</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-image">
+            </div>
+            <div class="card-content center-align">
+                <h5>ANT</h5>
+                <p>You own {{stockPorfolio.andiStock}}</p>
+                <p>Current Value : </p>
+                <br>
+            </div>
+            <div class="card-action center-align">
+                <a href="/stock/andi" class="btn grey">Trade</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m4">
+        <div class="card">
+            <div class="card-image">
+            </div>
+            <div class="card-content center-align">
+                <h5>WD</h5>
+                <p>You own {{stockPorfolio.stanleyStock}}</p>
+                <p>Current Value : </p>
+                <br>
+            </div>
+            <div class="card-action center-align">
+                <a href="/stock/whiteDevil" class="btn grey">Trade</a>
+            </div>
+        </div>
+    </div>
+
+</div>

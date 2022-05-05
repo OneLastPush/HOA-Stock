@@ -2,6 +2,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const TwitchStrategy = require('twitch-oauth-passport').Strategy
 const mongoose = require('mongoose')
 const User = require('../models/User')
+const StockPorfolio = require('../models/StockPorfolio')
 
 module.exports = function (passport) {
     passport.use(new GoogleStrategy({
@@ -39,6 +40,7 @@ module.exports = function (passport) {
         scope: 'user_read'
     },
         async (accessToken, refreshToken, profile, done) => {
+            
             const newUser = {
                 apiId: profile.id,
                 apiType: 'Twitch',
@@ -54,6 +56,16 @@ module.exports = function (passport) {
                     done(null, user)
                 } else {
                     user = await User.create(newUser)
+                    
+                    const newPorfolio = {
+                        hoaCoin: 10,
+                        sizStock: 1,
+                        andiStock: 1,
+                        stanleyStock: 30,
+                        user : user,
+                    }
+                    await StockPorfolio.create(newPorfolio)
+
                     done(null, user)
                 }
             } catch (err) {

@@ -23,7 +23,9 @@
     "morgan": "^1.10.0",
     "passport": "^0.5.2",
     "passport-google-oauth20": "^2.0.0",
-    "twitch-oauth-passport": "^1.0.4"
+    "request": "^2.88.2",
+    "twitch-oauth-passport": "^1.0.4",
+    "websocket": "^1.0.34"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

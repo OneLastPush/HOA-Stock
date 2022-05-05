@@ -89,5 +89,45 @@ app.use('/stories', require('./routes/stories'))
 
 const PORT = process.env.PORT || 3000
 
+const { someAsyncOperation } = require('./stockProcessing/valueCalculation')
+const { Console } = require('console')
+
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`))
 
+
+const { getTwitchToken, connectToTwitch } = require('./api/TwitchWebSocket')
+
+getTwitchToken(process.env.TWITCH_CLIENT_ID, process.env.TWITCH_CLIENT_SECRET, process.env.TWITCH_GET_TOKEN, (err, body) => {
+    if(body)
+        connectToTwitch(body.access_token, process.env.TWITCH_CLIENT_ID)
+
+    if(err)
+        console.error(err)
+})
+
+/*Stock.create({
+    name: 'AntStock',
+    codeName: 'ANT'
+})*/
+
+/*
+// Calculating stock value
+ setInterval( async () => {
+    const stockSiz = await Stock.findOne({
+        codeName: 'SIZ'
+    }).lean()
+
+    await StockValue.create({
+        value: Math.random(),
+        stock: stockSiz
+    })
+
+    const stockAnt = await Stock.findOne({
+        codeName: 'ANT'
+    }).lean()
+
+    await StockValue.create({
+        value: Math.random(),
+        stock: stockAnt
+    })
+}, 5000)*/

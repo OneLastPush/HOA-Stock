@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { ensureAuth, ensureGuest } = require('../middleware/auth')
 
-const Story = require('../models/Story')
+const StockPorfolio = require('../models/StockPorfolio')
 
 //@desc     Login/Landing page
 //@route    GET /
@@ -16,10 +16,11 @@ router.get('/', ensureGuest, (req, res) => {
 //@route    GET /dashboard
 router.get('/dashboard', ensureAuth, async (req, res) => {
     try {
-        const stories = await Story.find({ user: req.user.id }).lean()
+        const stockPorfolio = await StockPorfolio.findOne({ user: req.user.id }).lean()
+
         res.render('dashboard', {
             name: req.user.firstName,
-            stories
+            stockPorfolio
         })
     } catch (err) {
         console.log(err)
