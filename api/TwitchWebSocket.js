@@ -22,23 +22,25 @@ module.exports = {
             callback(null, body)
         })
     },
-    getTwitchToken: function (TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_GET_TOKEN, callback) {
+    getTwitchToken: function (TWITCH_CLIENT_ID, TWITCH_CLIENT_SECRET, TWITCH_GET_TOKEN, TWITCH_AUTH_CODE, REDIRECT_URI, callback) {
         const request = require('request')
 
-        const options = {
+        const options = { 
             url: TWITCH_GET_TOKEN,
             json: true,
-            body: {
+            body: { 
                 client_id: TWITCH_CLIENT_ID,
                 client_secret: TWITCH_CLIENT_SECRET,
-                grant_type: 'client_credentials',
+                grant_type: 'authorization_code',
+                code: TWITCH_AUTH_CODE,
+                redirect_uri: REDIRECT_URI
             }
-        }
-
+        } 
+        console.log(JSON.stringify(options))
         request.post(options, (err, res, body) => {
             if (err)
                 return console.error(err, null)
-
+            console.log(JSON.stringify(res))
             callback(null, body)
         })
     },
@@ -57,13 +59,11 @@ module.exports = {
         client.on('connect', (connection) => {
             console.log('WebSocket Client Connected')
 
-            connection.sendUTF('CAP REQ :twitch.tv/tags twitch.tv/commands');
-            console.debug(`${botUsername}`)
-
+            connection.sendUTF('CAP REQ :twitch.tv/tags twitch.tv/commands')
             connection.sendUTF(`PASS oauth:${accessToken}`)
-            connection.sendUTF(`NICK ${botUsername}`)
+            connection.sendUTF('NICK hoa_stockbot');
 
-            //connection.sendUTF('JOIN #hoa_stockbot')
+            connection.sendUTF('JOIN #hoa_stockbot')
 
             let intervalObj = setInterval(() => {
                 connection.sendUTF(`PRIVMSG #hoa_stockbot : Get up and move, your body will thank you!`)

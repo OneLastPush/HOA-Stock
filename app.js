@@ -97,12 +97,12 @@ app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on 
 
 const { getTwitchToken, connectToTwitch } = require('./api/TwitchWebSocket')
 
-getTwitchToken(process.env.TWITCH_CLIENT_ID, process.env.TWITCH_CLIENT_SECRET, process.env.TWITCH_GET_TOKEN, (err, body) => {
-    if(body)
-        connectToTwitch(body.access_token, process.env.TWITCH_CLIENT_ID)
-
-    if(err)
+getTwitchToken(process.env.TWITCH_CLIENT_ID, process.env.TWITCH_CLIENT_SECRET, process.env.TWITCH_GET_TOKEN, process.env.TWITCH_AUTH_CODE, process.env.REDIRECT_URI, (err, body) => {
+    if (err)
         console.error(err)
+
+    if (body)
+        connectToTwitch(body?.access_token, process.env.TWITCH_CLIENT_ID)
 })
 
 /*Stock.create({
